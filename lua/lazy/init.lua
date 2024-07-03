@@ -29,6 +29,9 @@ end
 ---@overload fun(opts: LazyConfig)
 ---@overload fun(spec:LazySpec, opts: LazyConfig)
 function M.setup(spec, opts)
+  print("2024-07-03 12:21 init.setup")
+  print(vim.inspect(package.path))
+  print(vim.inspect(spec))
   if type(spec) == "table" and spec.spec then
     ---@cast spec LazyConfig
     opts = spec
@@ -99,6 +102,7 @@ function M.setup(spec, opts)
   Util.track()
 
   -- setup loader and handlers
+  print("2024-07-03 12:35 init.lua Loader.setup")
   Loader.setup()
 
   -- correct time delta and loaded

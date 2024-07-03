@@ -150,11 +150,8 @@ function Spec:import(spec)
   local modspecs = {}
 
   if type(import) == "string" then
-    Util.lsmod(import, function(modname, modpath)
+    Util.lsmod(import, function(modname)
       modspecs[#modspecs + 1] = modname
-      package.preload[modname] = function()
-        return loadfile(modpath)()
-      end
     end)
     table.sort(modspecs)
   else
@@ -175,10 +172,10 @@ function Spec:import(spec)
         self.importing = nil
         return self:error(
           "Invalid spec module: `"
-            .. modname
-            .. "`\nExpected a `table` of specs, but a `"
-            .. type(mod)
-            .. "` was returned instead"
+          .. modname
+          .. "`\nExpected a `table` of specs, but a `"
+          .. type(mod)
+          .. "` was returned instead"
         )
       end
       self:normalize(mod)
@@ -221,11 +218,11 @@ function M.update_state()
     plugin._ = plugin._ or {}
     if plugin.lazy == nil then
       local lazy = plugin._.dep
-        or Config.options.defaults.lazy
-        or plugin.event
-        or plugin.keys
-        or plugin.ft
-        or plugin.cmd
+          or Config.options.defaults.lazy
+          or plugin.event
+          or plugin.keys
+          or plugin.ft
+          or plugin.cmd
       plugin.lazy = lazy and true or false
     end
     if plugin.dir:find(Config.options.root, 1, true) == 1 then
@@ -316,7 +313,10 @@ function M.load()
   M.loading = true
   -- load specs
   Util.track("spec")
+  print("2024-07-03 12:36 plugin.load")
   Config.spec = Spec.new()
+  print("2024-07-03 12:37 Config.spec.new")
+  print(vim.inspect(Config.spec))
 
   local specs = {
     ---@diagnostic disable-next-line: param-type-mismatch
@@ -325,8 +325,9 @@ function M.load()
   specs[#specs + 1] = M.find_local_spec()
   specs[#specs + 1] = { "folke/lazy.nvim" }
 
+  print("2024-07-03 12:37 Config.spec:parse")
   Config.spec:parse(specs)
-
+  print(vim.inspect(Config.spec.plugins))
   -- override some lazy props
   local lazy = Config.spec.plugins["lazy.nvim"]
   if lazy then
