@@ -4,7 +4,6 @@ debuglog.setup({
   --   log_to_console = true,
 })
 debuglog.enable("*")
--- print(require("debuglog").log_file_path())
 local filename = require("lazy.util").filename
 local my_logger = require("dlog").logger(filename())
 

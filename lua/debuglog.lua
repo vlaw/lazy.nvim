@@ -170,9 +170,9 @@ function M.install_shim(dir)
 
   local current_path = script_path()
   local current_dir = current_path:gsub(path_sep() .. "([^" .. path_sep() ..
-  "]+)$", function()
-    return ""
-  end)
+    "]+)$", function()
+      return ""
+    end)
   local shim_path = current_dir .. "/../dlog.lua"
   local cmd
   local dest

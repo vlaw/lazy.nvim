@@ -318,7 +318,7 @@ function M.load()
   Util.track("spec")
   Config.spec = Spec.new()
   my_logger("2024-07-03 12:37 Config.spec.new")
-  my_logger("Config.spec: %s", vim.inspect(Config.spec))
+  my_logger("Config.spec: %s", vim.inspect(Config.spec.str_to_meta))
 
   local specs = {
     ---@diagnostic disable-next-line: param-type-mismatch
@@ -327,9 +327,9 @@ function M.load()
   specs[#specs + 1] = M.find_local_spec()
   specs[#specs + 1] = { "folke/lazy.nvim" }
 
-  print("2024-07-03 12:37 Config.spec:parse")
+  my_logger("2024-07-03 12:37 Config.spec:parse")
   Config.spec:parse(specs)
-  print(vim.inspect(Config.spec.plugins))
+  my_logger("plugins: %s", vim.inspect(Config.spec.plugins))
   -- override some lazy props
   local lazy = Config.spec.plugins["lazy.nvim"]
   if lazy then
