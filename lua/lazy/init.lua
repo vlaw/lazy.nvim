@@ -1,5 +1,5 @@
--- local d = require("dlog").logger("my_logger")
--- d("Formatted lua string %s, number %d, etc", "test", 42)
+local d = require("dlog").logger("my_logger")
+d("Formatted lua string %s, number %d, etc", "test", 42)
 
 ---@class Lazy: LazyCommands
 local M = {}
