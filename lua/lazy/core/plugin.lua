@@ -1,3 +1,6 @@
+local filename = require("lazy.util").filename
+local my_logger = require("dlog").logger(filename())
+
 local Config = require("lazy.core.config")
 local Meta = require("lazy.core.meta")
 local Pkg = require("lazy.pkg")
@@ -313,10 +316,9 @@ function M.load()
   M.loading = true
   -- load specs
   Util.track("spec")
-  print("2024-07-03 12:36 plugin.load")
   Config.spec = Spec.new()
-  print("2024-07-03 12:37 Config.spec.new")
-  print(vim.inspect(Config.spec))
+  my_logger("2024-07-03 12:37 Config.spec.new")
+  my_logger("Config.spec: %s", vim.inspect(Config.spec))
 
   local specs = {
     ---@diagnostic disable-next-line: param-type-mismatch

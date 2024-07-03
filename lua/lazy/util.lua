@@ -1,6 +1,13 @@
 ---@class LazyUtil: LazyUtilCore
 local M = setmetatable({}, { __index = require("lazy.core.util") })
 
+
+function M.filename()
+  local str = debug.getinfo(2, "S").source:sub(2)
+  local str = str:match("^.*/((.*)/(.*)).lua$") or str
+  return str
+end
+
 function M.file_exists(file)
   return vim.uv.fs_stat(file) ~= nil
 end
@@ -88,7 +95,6 @@ function M.throttle(ms, fn)
         pending = false
         fn()
         async:sleep(ms)
-
       until not pending
     end)
   end

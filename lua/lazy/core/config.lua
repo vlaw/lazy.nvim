@@ -1,5 +1,8 @@
 local Util = require("lazy.core.util")
 
+local filename = require("lazy.util").filename
+local my_logger = require("dlog").logger(filename())
+
 ---@class LazyCoreConfig
 local M = {}
 
@@ -259,10 +262,9 @@ end
 
 ---@param opts? LazyConfig
 function M.setup(opts)
-  print("2024-07-03 12:22 Config.setup")
-  print(vim.inspect(opts.spec))
+  my_logger("Config.setup")
   M.options = vim.tbl_deep_extend("force", M.defaults, opts or {})
-  print(vim.inspect(M.options.spec))
+  my_logger("opts.spec:\n %s", vim.inspect(M.options.spec))
 
   if type(M.options.spec) == "string" then
     M.options.spec = { import = M.options.spec }

@@ -1,5 +1,12 @@
-local d = require("dlog").logger("my_logger")
-d("Formatted lua string %s, number %d, etc", "test", 42)
+local debuglog = require("debuglog")
+debuglog.setup({
+  log_to_file = true,
+  --   log_to_console = true,
+})
+debuglog.enable("*")
+-- print(require("debuglog").log_file_path())
+local filename = require("lazy.util").filename
+local my_logger = require("dlog").logger(filename())
 
 ---@class Lazy: LazyCommands
 local M = {}
@@ -32,9 +39,9 @@ end
 ---@overload fun(opts: LazyConfig)
 ---@overload fun(spec:LazySpec, opts: LazyConfig)
 function M.setup(spec, opts)
-  print("2024-07-03 12:21 init.setup")
-  print(vim.inspect(package.path))
-  print(vim.inspect(spec))
+  my_logger("package.path: %s", vim.inspect(package.path))
+  my_logger("spec: %s", vim.inspect(spec))
+  my_logger("opts: %s", vim.inspect(opts))
   if type(spec) == "table" and spec.spec then
     ---@cast spec LazyConfig
     opts = spec
