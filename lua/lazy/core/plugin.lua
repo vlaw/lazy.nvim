@@ -327,9 +327,9 @@ function M.load()
   specs[#specs + 1] = M.find_local_spec()
   specs[#specs + 1] = { "folke/lazy.nvim" }
 
-  my_logger("2024-07-03 12:37 Config.spec:parse")
+  my_logger("Config.spec:parse")
   Config.spec:parse(specs)
-  my_logger("plugins: %s", vim.inspect(Config.spec.plugins))
+  -- my_logger("plugins: %s", vim.inspect(Config.spec))
   -- override some lazy props
   local lazy = Config.spec.plugins["lazy.nvim"]
   if lazy then
@@ -341,6 +341,7 @@ function M.load()
     lazy._.loaded = {}
   end
 
+  my_logger("plugins: %s", vim.inspect(Config.spec.plugins))
   -- add hererocks when enabled and needed
   for _, plugin in pairs(Config.spec.plugins) do
     if plugin.build == "rockspec" then
